@@ -1,37 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7858529210970040210
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
-  m_Name: CinemachineShot
-  m_EditorClassIdentifier: 
-  DisplayName: 
-  VirtualCamera:
-    exposedName: 6e425d6aa0eccae46a8707acfadc8bf6
-    defaultValue: {fileID: 0}
---- !u!114 &-1624354835014817990
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
-  m_Name: CinemachineShot
-  m_EditorClassIdentifier: 
-  DisplayName: 
-  VirtualCamera:
-    exposedName: 155287eca4d1e054d888287dbaa21fe6
-    defaultValue: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,14 +69,14 @@ MonoBehaviour:
   - m_Version: 1
     m_Start: 0
     m_ClipIn: 0
-    m_Asset: {fileID: -1624354835014817990}
-    m_Duration: 2.35
+    m_Asset: {fileID: 3697826456548628431}
+    m_Duration: 2.3
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2299427954777957079}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 1.8333333333333335
+    m_BlendOutDuration: 1.6999999999999997
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -168,15 +136,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Virtual Camera1
   - m_Version: 1
-    m_Start: 0.5166666666666667
+    m_Start: 0.6
     m_ClipIn: 0
-    m_Asset: {fileID: -7858529210970040210}
-    m_Duration: 2.4499999999999993
+    m_Asset: {fileID: 5125072065769550770}
+    m_Duration: 2.4833333333333334
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2299427954777957079}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 1.8333333333333335
+    m_BlendInDuration: 1.6999999999999997
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -220,3 +188,35 @@ MonoBehaviour:
     m_DisplayName: Virtual Camera2
   m_Markers:
     m_Objects: []
+--- !u!114 &3697826456548628431
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  VirtualCamera:
+    exposedName: 7d75b76ef70ce08459fdf13974b01bc0
+    defaultValue: {fileID: 0}
+--- !u!114 &5125072065769550770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  VirtualCamera:
+    exposedName: e68a517370d1afb48a1a171975cbfcb9
+    defaultValue: {fileID: 0}

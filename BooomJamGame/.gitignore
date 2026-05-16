@@ -108,3 +108,12 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# 忽略你的打包输出文件
+/BooomJam/
+/幻想勇者/
+/幻想勇者_Data/
+*.exe
+*.dll
+UnityCrashHandler64.exe
+*_BurstDebugInformation_DoNotShip/

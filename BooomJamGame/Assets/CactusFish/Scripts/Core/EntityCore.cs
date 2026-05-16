@@ -1,7 +1,11 @@
-// EntityCore.cs
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+
+// 注意：所有 using 必须写在最顶部，类外面
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class EntityCore : MonoBehaviour
 {
@@ -24,11 +28,9 @@ public class EntityCore : MonoBehaviour
 
     void Update()
     {
-        // 施行：只执行当前活着的模块
-        // 注意：我们用 ToList() 复制一份，防止在 Tick 里自己把自己移除导致报错
+        // 只执行当前活着的模块
         foreach (var module in _moduleMap.Keys.ToList())
         {
-            // 双重保险：如果脚本被销毁了但没来得及通知，这里跳过
             if (_moduleMap[module] != null && _moduleMap[module].enabled)
             {
                 module.OnModuleTick();
@@ -37,7 +39,6 @@ public class EntityCore : MonoBehaviour
     }
 
     // --- 公共 API：供模块自动调用 ---
-
     public void RegisterModule(IModuleCore module, MonoBehaviour mono)
     {
         if (!_moduleMap.ContainsKey(module))
@@ -45,7 +46,8 @@ public class EntityCore : MonoBehaviour
             _moduleMap.Add(module, mono);
             module.OnModuleLoad(this);
 
-            if (showDebugLogs) Debug.Log($"[{gameObject.name}] 热插拔：装载模块 [{mono.GetType().Name}]");
+            if (showDebugLogs)
+                Debug.Log($"[{gameObject.name}] 热插拔：装载模块 [{mono.GetType().Name}]");
         }
     }
 
@@ -56,51 +58,54 @@ public class EntityCore : MonoBehaviour
             module.OnModuleUnload();
             _moduleMap.Remove(module);
 
-            if (showDebugLogs) Debug.Log($"[{gameObject.name}] 热插拔：卸载模块 [{mono.GetType().Name}]");
+            if (showDebugLogs)
+                Debug.Log($"[{gameObject.name}] 热插拔：卸载模块 [{mono.GetType().Name}]");
         }
     }
 
-    // --- 辅助工具：如果你想在编辑器里手动刷新一下 ---
+    // --- 辅助工具：编辑器手动扫描模块 ---
     [ContextMenu("手动扫描所有模块")]
     public void ManualScanAllModules()
     {
         var allModules = GetComponents<IModuleCore>();
         foreach (var module in allModules)
         {
-            // 如果还没注册，就注册一下（Register内部会判断重复，所以直接调没问题）
             RegisterModule(module, module as MonoBehaviour);
         }
     }
 
     // --- 数据查找 ---
-
     public EnemyData FindDataById(int targetId)
     {
-        string[] guids = UnityEditor.AssetDatabase.FindAssets("t:EnemyDataTable");
+#if UNITY_EDITOR
+        string[] guids = AssetDatabase.FindAssets("t:EnemyDataTable");
         if (guids.Length > 0)
         {
-            string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
-            EnemyDataTable dataTable = UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyDataTable>(path);
+            string path = AssetDatabase.GUIDToAssetPath(guids[0]);
+            EnemyDataTable dataTable = AssetDatabase.LoadAssetAtPath<EnemyDataTable>(path);
             if (dataTable != null)
             {
                 return dataTable.enemies.Find(e => e.id == targetId);
             }
         }
+#endif
         return null;
     }
 
     public EnemyData FindDataByName(string targetName)
     {
-        string[] guids = UnityEditor.AssetDatabase.FindAssets("t:EnemyDataTable");
+#if UNITY_EDITOR
+        string[] guids = AssetDatabase.FindAssets("t:EnemyDataTable");
         if (guids.Length > 0)
         {
-            string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
-            EnemyDataTable dataTable = UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyDataTable>(path);
+            string path = AssetDatabase.GUIDToAssetPath(guids[0]);
+            EnemyDataTable dataTable = AssetDatabase.LoadAssetAtPath<EnemyDataTable>(path);
             if (dataTable != null)
             {
                 return dataTable.enemies.Find(e => e.name == targetName);
             }
         }
+#endif
         return null;
     }
 }

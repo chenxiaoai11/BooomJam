@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f5ebe73de83d1349a42bd2fe0a976ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  director: {fileID: 0}
+  director: {fileID: 1054402189}
   emissionProperty: _EmissionStrength
   normalIntensity: 0
   hoverIntensity: 1.5
@@ -1662,7 +1662,7 @@ PlayableDirector:
     value: {fileID: 330585548}
   - key: {fileID: 6944836146838955131, guid: 3b7e55c85a483e447b11d09e6b91d325, type: 2}
     value: {fileID: 330585548}
-  - key: {fileID: 2299427954777957079, guid: 51e8cd57c5e1e744cbdeec73bcae4ddc, type: 2}
+  - key: {fileID: -1326222078016338479, guid: 51e8cd57c5e1e744cbdeec73bcae4ddc, type: 2}
     value: {fileID: 330585548}
   m_ExposedReferences:
     m_References:
@@ -1670,8 +1670,10 @@ PlayableDirector:
     - 2e74e6a2ce031304ba7f174d9086f8e6: {fileID: 0}
     - f63191b24973d09479b5c06502d380ba: {fileID: 0}
     - 12b20052293de7f4b9e65b0ad114beb7: {fileID: 0}
+    - 0add652bcb4975e4d8785a420c716849: {fileID: 1349588177}
     - 155287eca4d1e054d888287dbaa21fe6: {fileID: 0}
     - f2302a4a8f6de8a43a88669c7b806b91: {fileID: 0}
+    - 269a98b5c7eca7848a9f6f2014bb5ca9: {fileID: 58218681}
     - 6e425d6aa0eccae46a8707acfadc8bf6: {fileID: 0}
     - 9a78fbbc07814e344a76b8584b2a458a: {fileID: 0}
 --- !u!4 &1054402190
