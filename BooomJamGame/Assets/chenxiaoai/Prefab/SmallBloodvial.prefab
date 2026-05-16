@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 5417610785602381468}
   - component: {fileID: 542454339219313808}
   m_Layer: 0
-  m_Name: Bloodvial
+  m_Name: SmallBloodvial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
