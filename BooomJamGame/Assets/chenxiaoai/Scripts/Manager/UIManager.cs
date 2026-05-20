@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Top Right HUD")]
     public TextMeshProUGUI goldText;
+    public GameObject shopButton; // 新增：右上角的商店按钮引用
 
     [Header("Settings")]
     public float typewriterSpeed = 0.05f; 
@@ -42,6 +43,19 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         if (cardInfoPanel != null) cardInfoPanel.SetActive(false);
+        // 初始隐藏商店按钮
+        if (shopButton != null) shopButton.SetActive(false);
+    }
+
+    /// <summary>
+    /// 激活商店按钮（由 ShopTrigger 调用）
+    /// </summary>
+    public void EnableShopButton()
+    {
+        if (shopButton != null)
+        {
+            shopButton.SetActive(true);
+        }
     }
 
     public void ShowCardInfo(EntityCore core)

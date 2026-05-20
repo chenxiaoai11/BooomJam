@@ -114,6 +114,40 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 跳转到 Build Settings 中的下一个场景
+    /// </summary>
+    public void TransitionToNextScene()
+    {
+        int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            StartCoroutine(PerformTransition(nextIndex));
+        }
+        else
+        {
+            Debug.LogWarning("[SceneTransitionManager] 已经是最后一个场景，无法跳转到下一关！");
+        }
+    }
+
+    private IEnumerator PerformTransition(int buildIndex)
+    {
+        if (fadeCanvasGroup == null)
+        {
+            SceneManager.LoadScene(buildIndex);
+            yield break;
+        }
+
+        fadeCanvasGroup.blocksRaycasts = true;
+        yield return fadeCanvasGroup.DOFade(1f, fadeDuration).SetEase(Ease.Linear).WaitForCompletion();
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(buildIndex);
+        while (!asyncLoad.isDone) yield return null;
+
+        yield return fadeCanvasGroup.DOFade(0f, fadeDuration).SetEase(Ease.Linear).WaitForCompletion();
+        fadeCanvasGroup.blocksRaycasts = false;
+    }
+
+    /// <summary>
     /// 仅播放淡入（变黑）
     /// </summary>
     public Tween FadeIn()

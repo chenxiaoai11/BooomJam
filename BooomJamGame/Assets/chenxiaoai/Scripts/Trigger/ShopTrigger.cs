@@ -31,19 +31,27 @@ public class ShopTrigger : MonoBehaviour
             {
                 // 将当前触发器配置的数值传递给商店管理器
                 ShopManager.instance.InitShopValues(startPrice, priceIncrement, attackBonus, defenseBonus, healthBonus);
-                ShopManager.instance.OpenShop();
+                // 标记商店已解锁（永久）
+                ShopManager.instance.SetNearShop(true);
+                
+                // 激活 UIManager 上的商店按钮
+                if (UIManager.instance != null)
+                {
+                    UIManager.instance.EnableShopButton();
+                }
+
+                Debug.Log("[ShopTrigger] 玩家首次接触商店，已永久激活商店功能和 UI 按钮。");
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        // 按照您的要求，碰到之后就是激活状态了，所以离开时不执行注销逻辑
         EntityCore otherCore = other.GetComponent<EntityCore>();
         if (otherCore != null && otherCore.type == EntityType.Player)
         {
             playerInside = false;
-            // 如果你想离开商店范围自动关闭，可以取消下面注释
-            // if (ShopManager.instance != null) ShopManager.instance.CloseShop();
         }
     }
 }

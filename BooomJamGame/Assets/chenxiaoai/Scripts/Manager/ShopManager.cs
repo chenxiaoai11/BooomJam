@@ -21,6 +21,7 @@ public class ShopManager : MonoBehaviour
 
     [Header("Settings (Current)")]
     public float slideDuration = 0.5f;
+    public KeyCode shopShortcutKey = KeyCode.B; // 默认使用 B 键打开商店
     public int itemPrice = 20;
     public int priceIncrement = 2;
     public int attackBonus = 2;
@@ -30,14 +31,18 @@ public class ShopManager : MonoBehaviour
     public Vector2 hiddenPos = new Vector2(0, 1000);
     public Vector2 visiblePos = Vector2.zero;
 
+    private bool isNearShop = false;
+    private bool isShopOpen = false;
+
     private void Awake()
     {
         if (instance == null) instance = this;
         
-        // 初始化 UI 状态
+        // 初始隐藏并禁用面板物体
         if (shopPanel != null)
         {
             shopPanel.anchoredPosition = hiddenPos;
+            shopPanel.gameObject.SetActive(false);
         }
 
         // 初始关闭遮罩
@@ -50,6 +55,35 @@ public class ShopManager : MonoBehaviour
         if (exitBtn != null) exitBtn.onClick.AddListener(CloseShop);
 
         UpdatePriceUI();
+    }
+
+    private void Update()
+    {
+        // 如果玩家在商店附近，且按下了快捷键
+        if (isNearShop && Input.GetKeyDown(shopShortcutKey))
+        {
+            if (isShopOpen)
+                CloseShop();
+            else
+                OpenShop();
+        }
+    }
+
+    /// <summary>
+    /// 设置玩家是否在商店附近（已修改为永久激活逻辑）
+    /// </summary>
+    public void SetNearShop(bool state)
+    {
+        // 如果已经永久激活，则不再改变状态
+        if (isNearShop) return;
+
+        isNearShop = state;
+        
+        if (state)
+        {
+            // 碰到商店，激活面板物体，但保持在隐藏位置
+            if (shopPanel != null) shopPanel.gameObject.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -72,25 +106,42 @@ public class ShopManager : MonoBehaviour
 
     public void OpenShop()
     {
+        if (isShopOpen) return;
+        isShopOpen = true;
+
+        // 确保面板物体是激活的
+        if (shopPanel != null) shopPanel.gameObject.SetActive(true);
+
         // 开启面板时激活遮罩并拦截 3D 场景
         if (blockerMask != null) blockerMask.enabled = true;
         UIManager.IsBlocking3DScene = true;
 
         if (shopPanel != null)
         {
+            shopPanel.DOKill(true);
             shopPanel.DOAnchorPos(visiblePos, slideDuration).SetEase(Ease.OutBack).SetUpdate(true);
         }
     }
 
     public void CloseShop()
     {
+        if (!isShopOpen) return;
+        isShopOpen = false;
+
         if (shopPanel != null)
         {
+            shopPanel.DOKill(true);
             shopPanel.DOAnchorPos(hiddenPos, slideDuration).SetEase(Ease.InBack).SetUpdate(true)
             .OnComplete(() => {
                 // 面板完全退场后禁用遮罩并恢复 3D 场景
                 if (blockerMask != null) blockerMask.enabled = false;
                 UIManager.IsBlocking3DScene = false;
+
+                // 如果此时玩家已经不在商店附近了，则彻底禁用面板物体
+                if (!isNearShop)
+                {
+                    shopPanel.gameObject.SetActive(false);
+                }
             });
         }
         else
