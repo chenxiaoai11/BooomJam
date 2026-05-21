@@ -1384,7 +1384,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 610220584}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnShopButtonClick
         m_Mode: 1
@@ -4806,6 +4806,7 @@ MonoBehaviour:
   infoSkillsText: {fileID: 1544795085}
   goldText: {fileID: 243225035}
   shopButton: {fileID: 1763117654}
+  skillTreeButton: {fileID: 0}
   typewriterSpeed: 0.01
 --- !u!4 &610220585
 Transform:
@@ -6037,7 +6038,10 @@ MonoBehaviour:
   requiredCount: 2
   targetToActivate: {fileID: 689273275}
   transitionToNextScene: 0
+  targetSceneName: 
   transitionDelay: 1
+  completeSFX: deskScene_Win
+  currentCount: 0
 --- !u!4 &774140993
 Transform:
   m_ObjectHideFlags: 0
@@ -6223,6 +6227,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShopTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: startPrice
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: attackBonus
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: healthBonus
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: defenseBonus
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: priceIncrement
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8037957576350384808, guid: 35659ddf428c11540aa0c4afd32daa28,
         type: 3}
@@ -11600,7 +11629,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 610220584}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnSkillTreeButtonClick
         m_Mode: 1
@@ -13171,7 +13200,7 @@ MonoBehaviour:
   priceIncrement: 6
   attackBonus: 6
   defenseBonus: 6
-  healthBonus: 30
+  healthBonus: 600
   hiddenPos: {x: 0, y: 1500}
   visiblePos: {x: 0, y: 0}
 --- !u!4 &1639517652
@@ -13184,6 +13213,53 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1651503803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1651503805}
+  - component: {fileID: 1651503804}
+  m_Layer: 0
+  m_Name: SceneAudioInit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1651503804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651503803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d589c3bcecc1fd43965b1e9159c822c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneBGM: deskScene_bg
+  playOnStart: 1
+  restartIfSame: 0
+--- !u!4 &1651503805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651503803}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.864368, y: -325.0926, z: 490.2396}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17890,6 +17966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 774140992}
+  collectSFX: indoorInteract_Common
 --- !u!1001 &8253502508301149103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18049,6 +18126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 774140992}
+  collectSFX: indoorInteract_Common
 --- !u!1001 &9090045141855877270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18112,6 +18190,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9062871348196869651, guid: 6eac645f67688f54c90aab0355ccd008,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18137,3 +18220,4 @@ SceneRoots:
   - {fileID: 1639517652}
   - {fileID: 1996006661}
   - {fileID: 774140993}
+  - {fileID: 1651503805}

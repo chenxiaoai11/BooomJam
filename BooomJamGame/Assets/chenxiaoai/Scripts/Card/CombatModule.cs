@@ -26,15 +26,20 @@ public class CombatModule : ModuleBase
     [Tooltip("最小延迟时间")]
     public float minRetaliationDelay = 0.1f;
 
+    [Header("Shader Properties")]
+    public string emissionColorProperty = "_EmissionColor";
+    public string emissionStrengthProperty = "_EmissionStrength";
+
     [Header("Positioning Settings")]
     [Tooltip("战斗时距离敌人的固定间距")]
     public float combatSnapDistance = 1.2f;
     [Tooltip("进入战斗位置的平滑时间")]
     public float enterCombatPosDuration = 0.3f;
 
-    [Header("Shader Properties")]
-    public string emissionColorProperty = "_EmissionColor";
-    public string emissionStrengthProperty = "_EmissionStrength";
+    [Header("Audio Settings")]
+    public string enemyContactSFX = "deskInteract_Enemy"; // 接触敌人音效
+    public string resourceContactSFX = "deskInteract_Item"; // 接触资源音效
+    public string hitSFX = "deskInteract_Hit"; // 受击音效
 
     private Material cardMaterial;
     private Color originalEmissionColor;
@@ -79,6 +84,42 @@ public class CombatModule : ModuleBase
     public override void OnModuleUnload()
     {
         Debug.Log($"[{gameObject.name}] 战斗模块已卸载。");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 如果正在战斗中或正在处理碰撞，忽略新的触发
+        if (isCombatInProgress) return;
+
+        EntityCore targetCore = other.GetComponent<EntityCore>();
+        if (targetCore == null) return;
+
+        // 根据目标类型播放不同的音效
+        if (AudioManager.Instance != null)
+        {
+            if (targetCore.type == EntityType.Enemy || targetCore.type == EntityType.Boss)
+            {
+                AudioManager.Instance.PlaySFX(enemyContactSFX);
+            }
+            else if (targetCore.type == EntityType.Item)
+            {
+                AudioManager.Instance.PlaySFX(resourceContactSFX);
+            }
+        }
+
+        // 处理资源拾取 (ResourceModule)
+        ResourceModule resource = other.GetComponent<ResourceModule>();
+        if (resource != null)
+        {
+            resource.Consume(Core);
+            return;
+        }
+
+        // 如果是敌人且不是同一阵营，则发起战斗
+        if (targetCore.type == EntityType.Enemy || targetCore.type == EntityType.Boss)
+        {
+            StartCoroutine(PerformCombatSequence(targetCore, transform.position));
+        }
     }
 
     /// <summary>
@@ -232,6 +273,12 @@ public class CombatModule : ModuleBase
             targetCore.currentHealth -= damage;
             Debug.Log($"[{Core.entityName}] 攻击了 [{targetCore.entityName}]，造成 {damage} 点伤害，目标剩余血量: {targetCore.currentHealth}");
 
+            // 播放受击音效
+            if (AudioManager.Instance != null && !string.IsNullOrEmpty(hitSFX))
+            {
+                AudioManager.Instance.PlaySFX(hitSFX);
+            }
+
             // 视觉反馈：目标闪红
             if (targetCombat != null)
             {
@@ -300,8 +347,15 @@ public class CombatModule : ModuleBase
 
             // 检查自身是否死亡
             if (Core.currentHealth <= 0)
-            {                Debug.Log($"[{Core.entityName}] 已死亡，正在移除玩家卡牌。");
+            {
+                Debug.Log($"[{Core.entityName}] 已死亡，正在移除玩家卡牌。");
                 yield return StartCoroutine(RemoveCardWithDeathEffect(gameObject));
+
+                // 如果是玩家死亡，通知 GameManager 进行重置并返回主界面
+                if (Core.type == EntityType.Player && GameManager.instance != null)
+                {
+                    GameManager.instance.OnPlayerDeath();
+                }
                 break; // 结束战斗循环
             }
 

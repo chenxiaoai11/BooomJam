@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     [Header("Top Right HUD")]
     public TextMeshProUGUI goldText;
     public GameObject shopButton; // 新增：右上角的商店按钮引用
+    public GameObject skillTreeButton; // 新增：技能树按钮引用
 
     [Header("Settings")]
     public float typewriterSpeed = 0.05f; 
@@ -43,8 +44,27 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         if (cardInfoPanel != null) cardInfoPanel.SetActive(false);
-        // 初始隐藏商店按钮
+        // 初始隐藏商店按钮，技能树按钮保持默认状态（通常是显示）
         if (shopButton != null) shopButton.SetActive(false);
+        if (skillTreeButton != null) skillTreeButton.SetActive(true);
+    }
+
+    private void Start()
+    {
+        // 根据 GameManager 的持久化数据恢复按钮显示状态
+        RefreshButtonStates();
+    }
+
+    /// <summary>
+    /// 刷新商店和技能树按钮的显示状态
+    /// </summary>
+    public void RefreshButtonStates()
+    {
+        if (GameManager.instance != null)
+        {
+            // 商店按钮不再根据全局状态自动恢复，每关默认隐藏（直到碰到触发器）
+            if (skillTreeButton != null) skillTreeButton.SetActive(GameManager.instance.isSkillTreeUnlocked);
+        }
     }
 
     /// <summary>
@@ -55,6 +75,18 @@ public class UIManager : MonoBehaviour
         if (shopButton != null)
         {
             shopButton.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// 激活技能树按钮
+    /// </summary>
+    public void EnableSkillTreeButton()
+    {
+        if (GameManager.instance != null) GameManager.instance.isSkillTreeUnlocked = true;
+        if (skillTreeButton != null)
+        {
+            skillTreeButton.SetActive(true);
         }
     }
 

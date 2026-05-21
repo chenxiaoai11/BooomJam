@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// 多重触发管理器。
@@ -12,9 +13,12 @@ public class MultiTriggerManager : MonoBehaviour
     
     [Header("Level Transition")]
     public bool transitionToNextScene = false; // 是否在完成后跳转关卡
+    public string targetSceneName = ""; // 新增：跳转的目标场景名称，若为空则跳转到 Build Settings 的下一个
     public float transitionDelay = 1.0f; // 跳转前的延迟时间
+    public string completeSFX = "deskScene_Win"; // 全部完成后播放的音效 ID
 
-    private int currentCount = 0;
+    [Header("Debug Info")]
+    [SerializeField] private int currentCount = 0; // 改为序列化以方便在 Inspector 查看进度
 
     private void Awake()
     {
@@ -31,13 +35,32 @@ public class MultiTriggerManager : MonoBehaviour
     public void OnItemTriggered()
     {
         currentCount++;
-        Debug.Log($"[MultiTriggerManager] 进度: {currentCount}/{requiredCount}");
+        Debug.Log($"<color=yellow>[MultiTriggerManager]</color> 触发成功！当前进度: {currentCount}/{requiredCount}");
 
         if (currentCount >= requiredCount)
         {
+            Debug.Log("<color=green>[MultiTriggerManager]</color> 达成全部触发条件！");
+            
+            // 播放完成音效
+            if (AudioManager.Instance != null && !string.IsNullOrEmpty(completeSFX))
+            {
+                AudioManager.Instance.PlaySFX(completeSFX);
+            }
+
             if (targetToActivate != null) ActivateTarget();
-            if (transitionToNextScene) Invoke("DoTransition", transitionDelay);
+            
+            if (transitionToNextScene)
+            {
+                Debug.Log($"[MultiTriggerManager] 将在 {transitionDelay} 秒后跳转场景...");
+                StartCoroutine(WaitAndTransition());
+            }
         }
+    }
+
+    private IEnumerator WaitAndTransition()
+    {
+        yield return new WaitForSeconds(transitionDelay);
+        DoTransition();
     }
 
     private void ActivateTarget()
@@ -48,10 +71,17 @@ public class MultiTriggerManager : MonoBehaviour
 
     private void DoTransition()
     {
-        Debug.Log("[MultiTriggerManager] 正在准备跳转到下一关...");
+        Debug.Log("[MultiTriggerManager] 正在准备跳转到场景...");
         if (SceneTransitionManager.instance != null)
         {
-            SceneTransitionManager.instance.TransitionToNextScene();
+            if (!string.IsNullOrEmpty(targetSceneName))
+            {
+                SceneTransitionManager.instance.TransitionToScene(targetSceneName);
+            }
+            else
+            {
+                SceneTransitionManager.instance.TransitionToNextScene();
+            }
         }
         else
         {

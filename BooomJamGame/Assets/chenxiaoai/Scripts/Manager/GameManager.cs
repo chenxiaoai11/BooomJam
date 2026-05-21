@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         public int gold;
         public int skillPoints; // 新增技能点存储
         public List<string> unlockedSkills; // 新增已解锁技能列表
+        public bool isSkillTreeUnlocked; // 新增：技能树是否已解锁
     }
 
     public void SavePlayerData(EntityCore player)
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         savedPlayerData.gold = player.gold;
         savedPlayerData.skillPoints = skillPoints; // 保存当前技能点
         savedPlayerData.unlockedSkills = new List<string>(unlockedSkillIDs); // 保存已解锁技能
+        savedPlayerData.isSkillTreeUnlocked = isSkillTreeUnlocked;
         
         hasSavedData = true;
         Debug.Log("[GameManager] Player data saved.");
@@ -59,9 +61,19 @@ public class GameManager : MonoBehaviour
         
         this.skillPoints = savedPlayerData.skillPoints; // 加载技能点
         this.unlockedSkillIDs = new List<string>(savedPlayerData.unlockedSkills); // 加载已解锁技能
+        this.isSkillTreeUnlocked = savedPlayerData.isSkillTreeUnlocked;
 
         Debug.Log("[GameManager] Player data loaded.");
+
+        // 数据加载后通知 UIManager 刷新按钮
+        if (UIManager.instance != null)
+        {
+            UIManager.instance.RefreshButtonStates();
+        }
     }
+
+    [Header("Feature Unlock Status")]
+    public bool isSkillTreeUnlocked = true; // 技能树默认一直开启
 
     [Header("Skill Tree Data")]
     public int skillPoints = 0;
@@ -78,6 +90,49 @@ public class GameManager : MonoBehaviour
         {
             unlockedSkillIDs.Add(skillID);
         }
+    }
+
+    /// <summary>
+    /// 当玩家死亡时调用：重置数据并返回主界面
+    /// </summary>
+    public void OnPlayerDeath()
+    {
+        Debug.Log("[GameManager] Player has died. Resetting game and returning to home.");
+        ResetGameData();
+        
+        if (SceneTransitionManager.instance != null)
+        {
+            SceneTransitionManager.instance.TransitionToScene("Home");
+        }
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Home");
+        }
+    }
+
+    /// <summary>
+    /// 重置所有持久化数据为初始值
+    /// </summary>
+    public void ResetGameData()
+    {
+        hasSavedData = false;
+        isSkillTreeUnlocked = true; // 保持技能树始终开启的设定
+        skillPoints = 0;
+        unlockedSkillIDs.Clear();
+        
+        savedPlayerData = new PlayerPersistentData
+        {
+            maxHealth = 100,
+            currentHealth = 100,
+            attack = 10,
+            defense = 5,
+            gold = 10,
+            skillPoints = 0,
+            unlockedSkills = new List<string>(),
+            isSkillTreeUnlocked = true
+        };
+
+        Debug.Log("[GameManager] All persistent data has been reset.");
     }
 
     private void Awake()

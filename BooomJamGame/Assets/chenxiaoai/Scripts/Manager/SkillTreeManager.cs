@@ -21,7 +21,7 @@ public class SkillTreeManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        instance = this;
         
         // 初始位置设置
         if (skillTreePanelRect != null)
@@ -31,6 +31,15 @@ public class SkillTreeManager : MonoBehaviour
 
         // 初始关闭遮罩
         if (blockerMask != null) blockerMask.enabled = false;
+    }
+
+    private void Start()
+    {
+        // 同步持久化解锁状态
+        if (GameManager.instance != null && GameManager.instance.isSkillTreeUnlocked)
+        {
+            if (skillTreePanelRect != null) skillTreePanelRect.gameObject.SetActive(true);
+        }
     }
 
     public void OpenSkillTree()

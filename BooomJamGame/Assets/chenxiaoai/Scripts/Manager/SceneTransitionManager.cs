@@ -90,6 +90,25 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator PerformTransition(string sceneName)
     {
+        // 检查场景是否存在于 Build Settings 中
+        bool sceneExists = false;
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string path = SceneUtility.GetScenePathByBuildIndex(i);
+            string name = System.IO.Path.GetFileNameWithoutExtension(path);
+            if (name == sceneName)
+            {
+                sceneExists = true;
+                break;
+            }
+        }
+
+        if (!sceneExists)
+        {
+            Debug.LogError($"[SceneTransitionManager] 场景 '{sceneName}' 不在 Build Settings 中！无法跳转。");
+            yield break;
+        }
+
         if (fadeCanvasGroup == null)
         {
             Debug.LogError("[SceneTransitionManager] 未分配 fadeCanvasGroup！直接跳转。");

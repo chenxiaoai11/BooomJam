@@ -36,7 +36,7 @@ public class ShopManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        instance = this;
         
         // 初始隐藏并禁用面板物体
         if (shopPanel != null)
@@ -55,6 +55,12 @@ public class ShopManager : MonoBehaviour
         if (exitBtn != null) exitBtn.onClick.AddListener(CloseShop);
 
         UpdatePriceUI();
+    }
+
+    private void Start()
+    {
+        // 移除：不再每关自动根据 GameManager 恢复 nearShop 状态
+        // 必须在本关内碰到 ShopTrigger 才会激活
     }
 
     private void Update()

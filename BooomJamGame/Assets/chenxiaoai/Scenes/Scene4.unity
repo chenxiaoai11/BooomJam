@@ -1678,6 +1678,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7648631149199619935, guid: af4d7aaed8460ab4596c5064ec9b5d0d,
+        type: 3}
+      propertyPath: objectsToExit.Array.data[0]
+      value: 
+      objectReference: {fileID: 234513655}
+    - target: {fileID: 7648631149199619935, guid: af4d7aaed8460ab4596c5064ec9b5d0d,
+        type: 3}
+      propertyPath: objectsToEnter.Array.data[0]
+      value: 
+      objectReference: {fileID: 1275240602}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3119,7 +3129,7 @@ PrefabInstance:
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.38
+      value: 7.61
       objectReference: {fileID: 0}
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
@@ -3174,6 +3184,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 404416142}
+    - targetCorrespondingSourceObject: {fileID: 5568123212004423967, guid: ba1bdf450f826e2489fd1b7553653dc7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 404416150}
   m_SourcePrefab: {fileID: 100100000, guid: ba1bdf450f826e2489fd1b7553653dc7, type: 3}
 --- !u!4 &404416140 stripped
 Transform:
@@ -3200,6 +3214,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1981136570}
+  collectSFX: deskInteract_GoldCoin
+--- !u!65 &404416150
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404416141}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &424764875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3550,6 +3586,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShopTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: startPrice
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: attackBonus
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: healthBonus
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: defenseBonus
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963785660634406077, guid: 35659ddf428c11540aa0c4afd32daa28,
+        type: 3}
+      propertyPath: priceIncrement
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8037957576350384808, guid: 35659ddf428c11540aa0c4afd32daa28,
         type: 3}
@@ -4019,6 +4080,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561249333}
   m_CullTransparentMesh: 1
+--- !u!1 &575602813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 575602815}
+  - component: {fileID: 575602814}
+  m_Layer: 0
+  m_Name: SceneAudioInit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &575602814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575602813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d589c3bcecc1fd43965b1e9159c822c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneBGM: deskScene_bg
+  playOnStart: 1
+  restartIfSame: 0
+--- !u!4 &575602815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575602813}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.864368, y: -325.0926, z: 490.2396}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &578401901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4320,7 +4428,7 @@ MonoBehaviour:
   priceIncrement: 4
   attackBonus: 4
   defenseBonus: 4
-  healthBonus: 20
+  healthBonus: 400
   hiddenPos: {x: 0, y: 1500}
   visiblePos: {x: 0, y: 0}
 --- !u!4 &609287515
@@ -5224,7 +5332,7 @@ PrefabInstance:
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.04
+      value: -3.45
       objectReference: {fileID: 0}
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
@@ -5404,7 +5512,7 @@ PrefabInstance:
     - target: {fileID: 8070288107075410141, guid: 2fd8a692b1ebec1409adead5bbcb958f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.05
+      value: -1.69
       objectReference: {fileID: 0}
     - target: {fileID: 8070288107075410141, guid: 2fd8a692b1ebec1409adead5bbcb958f,
         type: 3}
@@ -5783,7 +5891,7 @@ PrefabInstance:
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.04
+      value: -3.59
       objectReference: {fileID: 0}
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
@@ -6015,7 +6123,7 @@ PrefabInstance:
     - target: {fileID: 3408340622607241934, guid: 9944d465e538e7a41b0695f176926b0e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.55
+      value: -7.93
       objectReference: {fileID: 0}
     - target: {fileID: 3408340622607241934, guid: 9944d465e538e7a41b0695f176926b0e,
         type: 3}
@@ -6135,6 +6243,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TriggerArrowRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942642802487093655, guid: 50d6d8a5f3a4d214eacd95f1e87b691a,
+        type: 3}
+      propertyPath: exitOffset.z
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942642802487093655, guid: 50d6d8a5f3a4d214eacd95f1e87b691a,
+        type: 3}
+      propertyPath: enterOffset.z
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 6942642802487093655, guid: 50d6d8a5f3a4d214eacd95f1e87b691a,
         type: 3}
@@ -8372,7 +8490,7 @@ PrefabInstance:
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.38
+      value: 7.55
       objectReference: {fileID: 0}
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
@@ -8427,6 +8545,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1172861647}
+    - targetCorrespondingSourceObject: {fileID: 5568123212004423967, guid: ba1bdf450f826e2489fd1b7553653dc7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1172861655}
   m_SourcePrefab: {fileID: 100100000, guid: ba1bdf450f826e2489fd1b7553653dc7, type: 3}
 --- !u!4 &1172861645 stripped
 Transform:
@@ -8453,6 +8575,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1981136570}
+  collectSFX: deskInteract_GoldCoin
+--- !u!65 &1172861655
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172861646}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1181874064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8619,7 +8763,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1385805442}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnSkillTreeButtonClick
         m_Mode: 1
@@ -9109,7 +9253,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1385805442}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnShopButtonClick
         m_Mode: 1
@@ -10830,6 +10974,7 @@ MonoBehaviour:
   infoSkillsText: {fileID: 648644256}
   goldText: {fileID: 1674712694}
   shopButton: {fileID: 691076458}
+  skillTreeButton: {fileID: 0}
   typewriterSpeed: 0.01
 --- !u!4 &1385805443
 Transform:
@@ -12592,7 +12737,7 @@ PrefabInstance:
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.38
+      value: 7.52
       objectReference: {fileID: 0}
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
@@ -12647,6 +12792,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1745291780}
+    - targetCorrespondingSourceObject: {fileID: 5568123212004423967, guid: ba1bdf450f826e2489fd1b7553653dc7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1745291788}
   m_SourcePrefab: {fileID: 100100000, guid: ba1bdf450f826e2489fd1b7553653dc7, type: 3}
 --- !u!4 &1745291778 stripped
 Transform:
@@ -12673,6 +12822,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1981136570}
+  collectSFX: deskInteract_GoldCoin
+--- !u!65 &1745291788
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745291779}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1771832215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14834,7 +15005,7 @@ PrefabInstance:
     - target: {fileID: 3408340622607241934, guid: 9944d465e538e7a41b0695f176926b0e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.55
+      value: -7.73
       objectReference: {fileID: 0}
     - target: {fileID: 3408340622607241934, guid: 9944d465e538e7a41b0695f176926b0e,
         type: 3}
@@ -14924,7 +15095,10 @@ MonoBehaviour:
   requiredCount: 4
   targetToActivate: {fileID: 0}
   transitionToNextScene: 1
+  targetSceneName: Scene5
   transitionDelay: 1
+  completeSFX: deskScene_Win
+  currentCount: 0
 --- !u!4 &1981136571
 Transform:
   m_ObjectHideFlags: 0
@@ -15802,7 +15976,7 @@ PrefabInstance:
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.38
+      value: 7.52
       objectReference: {fileID: 0}
     - target: {fileID: 6639351230735464619, guid: ba1bdf450f826e2489fd1b7553653dc7,
         type: 3}
@@ -15857,6 +16031,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2114338611}
+    - targetCorrespondingSourceObject: {fileID: 5568123212004423967, guid: ba1bdf450f826e2489fd1b7553653dc7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2114338619}
   m_SourcePrefab: {fileID: 100100000, guid: ba1bdf450f826e2489fd1b7553653dc7, type: 3}
 --- !u!4 &2114338609 stripped
 Transform:
@@ -15883,6 +16061,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1981136570}
+  collectSFX: deskInteract_GoldCoin
+--- !u!65 &2114338619
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114338610}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2121618558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16204,7 +16404,7 @@ PrefabInstance:
     - target: {fileID: 3195061140244871497, guid: efd713957181f454ea73362bad4a8f46,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.23
+      value: 2.72
       objectReference: {fileID: 0}
     - target: {fileID: 3195061140244871497, guid: efd713957181f454ea73362bad4a8f46,
         type: 3}
@@ -16485,10 +16685,11 @@ SceneRoots:
   - {fileID: 1797879370}
   - {fileID: 1512639476}
   - {fileID: 1117953870}
+  - {fileID: 234513655}
+  - {fileID: 1275240602}
   - {fileID: 758091480}
   - {fileID: 1385805443}
   - {fileID: 609287515}
   - {fileID: 583934523}
-  - {fileID: 234513655}
-  - {fileID: 1275240602}
   - {fileID: 1981136571}
+  - {fileID: 575602815}
