@@ -15097,7 +15097,7 @@ MonoBehaviour:
   transitionToNextScene: 1
   targetSceneName: Scene5
   transitionDelay: 1
-  completeSFX: deskScene_Win
+  completeSFX: 
   currentCount: 0
 --- !u!4 &1981136571
 Transform:

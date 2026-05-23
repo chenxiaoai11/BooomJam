@@ -428,6 +428,11 @@ MonoBehaviour:
   combatDetectionRadius: 3
   snapOffset: {x: 0, y: 0, z: -0.4}
   snapDuration: 0.3
+  enableCollision: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  collisionRadius: 0.4
   longPressThreshold: 0.15
 --- !u!114 &9011401859432066395
 MonoBehaviour:
@@ -464,10 +469,13 @@ MonoBehaviour:
   speedMultiplierPerTurn: 0.7
   minAttackDuration: 0.05
   minRetaliationDelay: 0.1
-  combatSnapDistance: 5
-  enterCombatPosDuration: 0.3
   emissionColorProperty: _EmissionColor
   emissionStrengthProperty: _EmissionStrength
+  combatSnapDistance: 5
+  enterCombatPosDuration: 0.3
+  enemyContactSFX: deskInteract_Battle
+  resourceContactSFX: deskInteract_TapCard
+  hitSFX: deskInteract_Shield
 --- !u!54 &-7006988848475506736
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -509,6 +517,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoLoad: 1
   autoSave: 1
+--- !u!114 &880010000000000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8008263815158512005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9358b0145584d40869ec4502a16bb09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HandDrawnHitPrefab: {fileID: 731590608524115701, guid: 61359ef6f3a649bbbf0eaded458696ee,
+    type: 3}
+  m_HitAnchor: {fileID: 0}
+  m_SurfaceOffset: 0.08
+  m_SurfaceNormal: {x: 0, y: 1, z: 0}
+  m_AutoFindRenderer: 1
+  m_LogWarnings: 1
 --- !u!1 &8858597483151163003
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,21 +850,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &880010000000000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8008263815158512005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9358b0145584d40869ec4502a16bb09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HandDrawnHitPrefab: {fileID: 731590608524115701, guid: 61359ef6f3a649bbbf0eaded458696ee, type: 3}
-  m_HitAnchor: {fileID: 0}
-  m_SurfaceOffset: 0.08
-  m_SurfaceNormal: {x: 0, y: 1, z: 0}
-  m_AutoFindRenderer: 1
-  m_LogWarnings: 1

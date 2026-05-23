@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 2223580620978220944}
   - component: {fileID: 1884022324368289420}
   - component: {fileID: 3715025205522999219}
+  - component: {fileID: 8184327976970044891}
   m_Layer: 0
   m_Name: Enemy_bloodbat
   m_TagString: Untagged
@@ -644,10 +645,13 @@ MonoBehaviour:
   speedMultiplierPerTurn: 0.7
   minAttackDuration: 0.05
   minRetaliationDelay: 0.1
-  combatSnapDistance: 5
-  enterCombatPosDuration: 0.3
   emissionColorProperty: _EmissionColor
   emissionStrengthProperty: _EmissionStrength
+  combatSnapDistance: 5
+  enterCombatPosDuration: 0.3
+  enemyContactSFX: deskInteract_Enemy
+  resourceContactSFX: deskInteract_Item
+  hitSFX: deskInteract_Hit
 --- !u!114 &3715025205522999219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -681,6 +685,25 @@ MonoBehaviour:
   weightZProperty: _WeightZ
   speedProperty: _Speed
   logWarnings: 1
+--- !u!114 &8184327976970044891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132538879487946669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9358b0145584d40869ec4502a16bb09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HandDrawnHitPrefab: {fileID: 731590608524115701, guid: 61359ef6f3a649bbbf0eaded458696ee,
+    type: 3}
+  m_HitAnchor: {fileID: 0}
+  m_SurfaceOffset: 0.08
+  m_SurfaceNormal: {x: 0, y: 1, z: 0}
+  m_AutoFindRenderer: 1
+  m_LogWarnings: 1
 --- !u!1 &8927486102924003441
 GameObject:
   m_ObjectHideFlags: 0
