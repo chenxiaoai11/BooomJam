@@ -54,6 +54,7 @@ public class CardVisualModule : ModuleBase
     private bool isHovering = false;
     private bool isDragging = false;
     private bool isExternalAnimating = false;
+    private CombatModule combatModule; // 缓存战斗模块引用
 
     [Header("Input Settings")]
     [Tooltip("长按判定时间 (秒)，超过此时间则判定为拖拽")]
@@ -73,7 +74,11 @@ public class CardVisualModule : ModuleBase
             // 当外部动画结束时，刷新基础位置，防止卡牌跳回移动前的位置
             if (!isExternalAnimating)
             {
+                // 关键修复：保留初始的桌面 Y 轴高度，防止卡牌因为外部位移而永久“飘”在空中
+                float originalY = basePosition.y;
                 basePosition = transform.position;
+                basePosition.y = originalY; 
+                
                 targetPosition = basePosition;
             }
         }
@@ -93,6 +98,9 @@ public class CardVisualModule : ModuleBase
         // 记录初始位置
         basePosition = transform.position;
         targetPosition = basePosition;
+
+        // 尝试获取战斗模块
+        combatModule = GetComponent<CombatModule>();
 
         // 获取渲染器上的材质
         Renderer renderer = GetComponent<Renderer>();
@@ -116,17 +124,37 @@ public class CardVisualModule : ModuleBase
     {
         if (isExternalAnimating) return;
 
-        // 处理长按逻辑
-        if (potentialClick && !isDragging)
+        bool isTransitioning = ObjectSwitcherTrigger.isAnyTriggerRunning;
+        bool isInCombat = combatModule != null && combatModule.IsCombatInProgress;
+
+        // 如果场景正在切换，或者正在战斗中，强制停止拖拽并让卡牌“下来”
+        if (isTransitioning || isInCombat)
         {
-            if (Time.time - mouseDownTime > longPressThreshold)
+            if (isDragging || isHovering)
             {
-                StartDragging();
+                isDragging = false;
+                isHovering = false;
+                potentialClick = false;
+                targetPosition = basePosition; // 目标设为桌面高度
+                targetEmission = normalEmission;
+            }
+        }
+        else
+        {
+            // 只有不在切换和战斗时才处理输入逻辑
+            if (potentialClick && !isDragging)
+            {
+                if (Time.time - mouseDownTime > longPressThreshold)
+                {
+                    StartDragging();
+                }
             }
         }
 
-        // 如果正在拖拽，实时更新目标位置
-        if (isDragging)
+        // --- 核心位移逻辑 (即使在切换或战斗中也运行，以确保卡牌能平滑落回桌面) ---
+
+        // 如果正在拖拽且没有在切换场景或战斗，实时更新目标位置
+        if (isDragging && !isTransitioning && !isInCombat)
         {
             UpdateDraggingPosition();
         }
@@ -167,11 +195,32 @@ public class CardVisualModule : ModuleBase
 
                 if (moveDist > 0.001f)
                 {
-                    // 使用 SphereCast 检测从当前位置到目标位置之间是否有墙
-                    if (Physics.SphereCast(transform.position, collisionRadius, moveDir.normalized, out RaycastHit hit, moveDist, obstacleLayer))
+                    // 使用 SphereCastAll 检测路径上的所有物体，以便我们可以过滤掉不需要碰撞的卡牌
+                    RaycastHit[] hits = Physics.SphereCastAll(transform.position, collisionRadius, moveDir.normalized, moveDist, obstacleLayer);
+                    
+                    RaycastHit closestBlockingHit = new RaycastHit();
+                    float closestDistance = float.MaxValue;
+                    bool hasBlockingHit = false;
+
+                    foreach (var hit in hits)
                     {
-                        // 如果撞到了，将目标位置设为撞击点（稍微回退一点防止穿模）
-                        targetPosition = hit.point + hit.normal * (collisionRadius + 0.01f);
+                        // 过滤逻辑：只有 Tag 为 Enemy 或 Wall 的物体才会产生物理阻碍
+                        // 注意：Tag 是区分大小写的，必须与 Unity 编辑器中定义的完全一致
+                        if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Wall"))
+                        {
+                            if (hit.distance < closestDistance)
+                            {
+                                closestDistance = hit.distance;
+                                closestBlockingHit = hit;
+                                hasBlockingHit = true;
+                            }
+                        }
+                    }
+
+                    if (hasBlockingHit)
+                    {
+                        // 如果撞到了阻碍物（敌人或墙），将目标位置设为撞击点（稍微回退一点防止穿模）
+                        targetPosition = closestBlockingHit.point + closestBlockingHit.normal * (collisionRadius + 0.01f);
                         targetPosition.y = proposedPosition.y; // 保持 Y 轴高度
                     }
                     else
@@ -198,7 +247,8 @@ public class CardVisualModule : ModuleBase
     /// </summary>
     private void OnMouseEnter()
     {
-        if (isDragging || UIManager.IsBlocking3DScene) return;
+        bool isInCombat = combatModule != null && combatModule.IsCombatInProgress;
+        if (isDragging || UIManager.IsBlocking3DScene || ObjectSwitcherTrigger.isAnyTriggerRunning || isInCombat) return;
         isHovering = true;
         targetPosition = basePosition + Vector3.up * hoverHeight;
         targetEmission = hoverEmission;
@@ -209,7 +259,8 @@ public class CardVisualModule : ModuleBase
     /// </summary>
     private void OnMouseExit()
     {
-        if (UIManager.IsBlocking3DScene)
+        bool isInCombat = combatModule != null && combatModule.IsCombatInProgress;
+        if (UIManager.IsBlocking3DScene || ObjectSwitcherTrigger.isAnyTriggerRunning || isInCombat)
         {
             isHovering = false;
             return;
@@ -228,7 +279,8 @@ public class CardVisualModule : ModuleBase
     /// </summary>
     private void OnMouseDown()
     {
-        if (isExternalAnimating || UIManager.IsBlocking3DScene) return;
+        bool isInCombat = combatModule != null && combatModule.IsCombatInProgress;
+        if (isExternalAnimating || UIManager.IsBlocking3DScene || ObjectSwitcherTrigger.isAnyTriggerRunning || isInCombat) return;
         
         mouseDownTime = Time.time;
         potentialClick = true;

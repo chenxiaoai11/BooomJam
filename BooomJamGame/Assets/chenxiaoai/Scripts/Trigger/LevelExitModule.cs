@@ -23,7 +23,7 @@ public class LevelExitModule : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
-        if (hasExited) return;
+        if (hasExited || ObjectSwitcherTrigger.isAnyTriggerRunning) return;
 
         // 1. 检查进入的物体是否有 EntityCore
         EntityCore otherCore = other.GetComponent<EntityCore>();

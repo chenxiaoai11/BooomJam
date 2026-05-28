@@ -16,6 +16,9 @@ public class CollectibleTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 如果场景正在位移切换，忽略触发
+        if (ObjectSwitcherTrigger.isAnyTriggerRunning) return;
+
         Debug.Log($"<color=cyan>[CollectibleDebug]</color> {gameObject.name} 被物体撞击: {other.name}");
 
         if (triggered) return;

@@ -30,7 +30,7 @@ public class ObjectSwitcherTrigger : MonoBehaviour
     private bool isAnimating = false;
     
     // 全局静态锁：确保同一时间只有一个触发器在执行位移逻辑
-    private static bool isAnyTriggerRunning = false;
+    public static bool isAnyTriggerRunning = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,7 +38,9 @@ public class ObjectSwitcherTrigger : MonoBehaviour
         // 增加全局锁判断：!isAnyTriggerRunning
         if (core != null && core.type == EntityType.Player && !hasTriggered && !isAnimating && !isAnyTriggerRunning)
         {
-            SwitchObjects();
+            // 记录下触发切换的玩家模块，以便同步锁定
+            CardVisualModule playerVisual = other.GetComponent<CardVisualModule>();
+            SwitchObjects(playerVisual);
         }
     }
 
@@ -52,12 +54,18 @@ public class ObjectSwitcherTrigger : MonoBehaviour
         }
     }
 
-    private void SwitchObjects()
+    private void SwitchObjects(CardVisualModule playerVisual = null)
     {
         hasTriggered = true;
         isAnimating = true;
         isAnyTriggerRunning = true; // 开启全局锁
         Debug.Log($"触发物体位移切换: {gameObject.name}");
+
+        // 如果提供了玩家视觉模块，也将其锁定
+        if (playerVisual != null)
+        {
+            playerVisual.IsExternalAnimating = true;
+        }
 
         int totalTweens = objectsToExit.Length + objectsToEnter.Length;
         int completedTweens = 0;
@@ -69,6 +77,12 @@ public class ObjectSwitcherTrigger : MonoBehaviour
             {
                 isAnimating = false;
                 isAnyTriggerRunning = false; // 释放全局锁，允许其他触发器工作
+                
+                // 释放玩家视觉模块锁定
+                if (playerVisual != null)
+                {
+                    playerVisual.IsExternalAnimating = false;
+                }
             }
         }
 

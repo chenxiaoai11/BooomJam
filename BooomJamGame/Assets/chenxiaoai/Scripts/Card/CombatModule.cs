@@ -41,10 +41,25 @@ public class CombatModule : ModuleBase
     public string resourceContactSFX = "deskInteract_Item"; // 接触资源音效
     public string hitSFX = "deskInteract_Hit"; // 受击音效
 
+    [Header("Combat Visuals (GameObjects)")]
+    [Tooltip("常态视觉物体")]
+    public GameObject normalVisual;
+    [Tooltip("攻击时视觉物体")]
+    public GameObject attackVisual;
+    [Tooltip("受击时视觉物体")]
+    public GameObject hurtVisual;
+
+    [Header("Visual Timing Settings")]
+    [Tooltip("攻击卡面维持的时长（设为 0 则使用 attackDuration）")]
+    public float attackVisualDuration = 0f;
+    [Tooltip("受击卡面维持的时长（设为 0 则使用 hitFlashDuration）")]
+    public float hurtVisualDuration = 0f;
+
     private Material cardMaterial;
     private Color originalEmissionColor;
     private float originalEmissionStrength;
     private bool isCombatInProgress = false;
+    public bool IsCombatInProgress => isCombatInProgress; // 公开属性供其他模块查询
     private CardHandDrawnHitEffectTrigger handDrawnHitEffectTrigger;
 
     // 技能相关状态变量
@@ -54,7 +69,8 @@ public class CombatModule : ModuleBase
     private int baseMaxHPAtCombatStart;
 
     public override void OnModuleLoad(EntityCore entity)
-    {        Renderer renderer = GetComponent<Renderer>();
+    {
+        Renderer renderer = GetComponent<Renderer>();
         if (renderer != null)
         {
             cardMaterial = renderer.material;
@@ -73,7 +89,22 @@ public class CombatModule : ModuleBase
 
         TryGetComponent(out handDrawnHitEffectTrigger);
         
+        // 初始状态：显示常态，隐藏其他
+        SwitchVisualState(VisualState.Normal);
+        
         Debug.Log($"[{gameObject.name}] 战斗模块已装载并重置发光。");
+    }
+
+    public enum VisualState { Normal, Attack, Hurt }
+
+    /// <summary>
+    /// 切换视觉状态：激活对应的 GameObject，隐藏其他的
+    /// </summary>
+    public void SwitchVisualState(VisualState state)
+    {
+        if (normalVisual != null) normalVisual.SetActive(state == VisualState.Normal);
+        if (attackVisual != null) attackVisual.SetActive(state == VisualState.Attack);
+        if (hurtVisual != null) hurtVisual.SetActive(state == VisualState.Hurt);
     }
 
     public override void OnModuleTick()
@@ -88,8 +119,8 @@ public class CombatModule : ModuleBase
 
     private void OnTriggerEnter(Collider other)
     {
-        // 如果正在战斗中或正在处理碰撞，忽略新的触发
-        if (isCombatInProgress) return;
+        // 如果正在战斗中、正在处理碰撞，或者场景正在位移切换，忽略新的触发
+        if (isCombatInProgress || ObjectSwitcherTrigger.isAnyTriggerRunning) return;
 
         EntityCore targetCore = other.GetComponent<EntityCore>();
         if (targetCore == null) return;
@@ -247,6 +278,9 @@ public class CombatModule : ModuleBase
             Vector3 startPos = transform.position;
             Vector3 attackPos = targetCore.transform.position;
             
+            // 切换为攻击状态
+            SwitchVisualState(VisualState.Attack);
+
             // 动画：冲过去
             yield return StartCoroutine(MoveTo(attackPos, currentAttackDur));
 
@@ -285,8 +319,17 @@ public class CombatModule : ModuleBase
                 StartCoroutine(targetCombat.FlashHitEffect());
             }
 
+            // 如果设置了特定的攻击卡面时长，等待一段时间再弹回，否则直接弹回
+            if (attackVisualDuration > 0)
+            {
+                yield return new WaitForSeconds(attackVisualDuration);
+            }
+
             // 动画：弹回原位
             yield return StartCoroutine(MoveTo(returnPos, currentAttackDur));
+
+            // 恢复常态
+            SwitchVisualState(VisualState.Normal);
 
             // 立即恢复攻击力（持盾猛击结束）
             Core.attack = originalAtkForBash;
@@ -313,6 +356,10 @@ public class CombatModule : ModuleBase
             
             if (targetCombat != null)
             {                Vector3 targetStartPos = targetCore.transform.position;
+                
+                // 目标切换为攻击状态
+                targetCombat.SwitchVisualState(VisualState.Attack);
+
                 // 反击动画：目标冲向当前实体
                 yield return StartCoroutine(targetCombat.MoveTo(transform.position, currentAttackDur));
 
@@ -341,8 +388,17 @@ public class CombatModule : ModuleBase
                 // 视觉反馈：自身闪红
                 StartCoroutine(FlashHitEffect());
 
+                // 如果设置了特定的攻击卡面时长，等待一段时间再弹回，否则直接弹回
+                if (targetCombat.attackVisualDuration > 0)
+                {
+                    yield return new WaitForSeconds(targetCombat.attackVisualDuration);
+                }
+
                 // 目标弹回原位
                 yield return StartCoroutine(targetCombat.MoveTo(targetStartPos, currentAttackDur));
+
+                // 目标恢复常态
+                targetCombat.SwitchVisualState(VisualState.Normal);
             }
 
             // 检查自身是否死亡
@@ -442,19 +498,30 @@ public class CombatModule : ModuleBase
     /// </summary>
     public IEnumerator FlashHitEffect()
     {
+        // 切换为受击状态
+        SwitchVisualState(VisualState.Hurt);
+
         PlayHandDrawnHitEffect();
 
-        if (cardMaterial == null) yield break;
+        // 确定受击视觉维持的时间
+        float currentHurtDur = hurtVisualDuration > 0 ? hurtVisualDuration : hitFlashDuration;
+
+        if (cardMaterial == null) 
+        {
+            yield return new WaitForSeconds(currentHurtDur);
+            SwitchVisualState(VisualState.Normal);
+            yield break;
+        }
 
         // 设置为指定的受击颜色
         cardMaterial.SetColor(emissionColorProperty, hitFlashColor);
         cardMaterial.SetFloat(emissionStrengthProperty, hitFlashIntensity);
 
         float elapsed = 0f;
-        while (elapsed < hitFlashDuration)
+        while (elapsed < currentHurtDur)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / hitFlashDuration;
+            float t = elapsed / currentHurtDur;
             // 平滑恢复到原始颜色和强度
             cardMaterial.SetColor(emissionColorProperty, Color.Lerp(hitFlashColor, originalEmissionColor, t));
             cardMaterial.SetFloat(emissionStrengthProperty, Mathf.Lerp(hitFlashIntensity, originalEmissionStrength, t));
@@ -464,6 +531,9 @@ public class CombatModule : ModuleBase
         // 确保恢复最终值
         cardMaterial.SetColor(emissionColorProperty, originalEmissionColor);
         cardMaterial.SetFloat(emissionStrengthProperty, originalEmissionStrength);
+        
+        // 恢复常态
+        SwitchVisualState(VisualState.Normal);
     }
 
     private void PlayHandDrawnHitEffect()

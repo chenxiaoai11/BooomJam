@@ -15,6 +15,9 @@ public class GoldTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 如果场景正在位移切换，忽略触发
+        if (ObjectSwitcherTrigger.isAnyTriggerRunning) return;
+
         // 1. 检查进入的物体是否有 EntityCore
         EntityCore otherCore = other.GetComponent<EntityCore>();
 
