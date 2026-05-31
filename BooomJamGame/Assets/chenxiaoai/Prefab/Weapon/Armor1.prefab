@@ -397,8 +397,8 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   attack: 0
-  defense: 10
-  gold: 5
+  defense: 2
+  gold: 0
   skills: []
 --- !u!114 &7693900286274539348
 MonoBehaviour:
@@ -425,6 +425,11 @@ MonoBehaviour:
   combatDetectionRadius: 0.5
   snapOffset: {x: 0, y: 0, z: -0.4}
   snapDuration: 0.3
+  enableCollision: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  collisionRadius: 0.4
   longPressThreshold: 0.15
 --- !u!114 &5693618445096418756
 MonoBehaviour:
@@ -455,8 +460,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceType: 1
   atkBonus: 0
-  defBonus: 0
+  defBonus: 2
   goldBonus: 0
+  hpBonus: 0
 --- !u!1 &4618757465746649579
 GameObject:
   m_ObjectHideFlags: 0

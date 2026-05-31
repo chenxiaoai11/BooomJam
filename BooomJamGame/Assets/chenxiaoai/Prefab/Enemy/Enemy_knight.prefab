@@ -544,12 +544,12 @@ MonoBehaviour:
   showDebugLogs: 1
   id: 12
   type: 0
-  entityName: Enemy1
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  entityName: knight
+  maxHealth: 400
+  currentHealth: 400
+  attack: 200
+  defense: 100
+  gold: 56
   skills: []
 --- !u!114 &7115211335324773402
 MonoBehaviour:

@@ -126,7 +126,7 @@ MonoBehaviour:
   id: 16
   type: 1
   entityName: Bloodvial
-  maxHealth: 0
+  maxHealth: 400
   currentHealth: 400
   attack: 0
   defense: 0

@@ -335,11 +335,11 @@ MonoBehaviour:
   showDebugLogs: 1
   id: 8
   type: 0
-  entityName: Enemy1
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
+  entityName: master
+  maxHealth: 60
+  currentHealth: 60
+  attack: 40
+  defense: 10
   gold: 10
   skills: []
 --- !u!114 &2374070342838789827

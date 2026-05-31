@@ -517,12 +517,12 @@ MonoBehaviour:
   showDebugLogs: 1
   id: 10
   type: 0
-  entityName: Enemy1
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  entityName: idolum
+  maxHealth: 90
+  currentHealth: 90
+  attack: 60
+  defense: 50
+  gold: 12
   skills: []
 --- !u!114 &7353839678873437456
 MonoBehaviour:

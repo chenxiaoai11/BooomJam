@@ -785,12 +785,12 @@ MonoBehaviour:
   showDebugLogs: 1
   id: 11
   type: 0
-  entityName: Enemy1
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  entityName: guard
+  maxHealth: 500
+  currentHealth: 500
+  attack: 280
+  defense: 140
+  gold: 0
   skills: []
 --- !u!114 &6515889795184346332
 MonoBehaviour:

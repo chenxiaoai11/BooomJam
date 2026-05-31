@@ -126,12 +126,12 @@ MonoBehaviour:
   showDebugLogs: 1
   id: 7
   type: 0
-  entityName: Enemy1
+  entityName: fish
   maxHealth: 100
   currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  attack: 80
+  defense: 30
+  gold: 18
   skills: []
 --- !u!114 &1189715146239231855
 MonoBehaviour:

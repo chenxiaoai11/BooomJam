@@ -605,7 +605,7 @@ MonoBehaviour:
   entityName: Sword3
   maxHealth: 0
   currentHealth: 0
-  attack: 40
+  attack: 6
   defense: 0
   gold: 0
   skills: []
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 0
-  atkBonus: 0
+  atkBonus: 6
   defBonus: 0
   goldBonus: 0
   hpBonus: 0

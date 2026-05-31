@@ -442,9 +442,9 @@ MonoBehaviour:
   entityName: Sword1
   maxHealth: 0
   currentHealth: 0
-  attack: 10
+  attack: 2
   defense: 0
-  gold: 5
+  gold: 0
   skills: []
 --- !u!114 &2220260924021790686
 MonoBehaviour:
@@ -471,6 +471,11 @@ MonoBehaviour:
   combatDetectionRadius: 0.5
   snapOffset: {x: 0, y: 0, z: -0.4}
   snapDuration: 0.3
+  enableCollision: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  collisionRadius: 0.4
   longPressThreshold: 0.15
 --- !u!114 &2886866627756928164
 MonoBehaviour:
@@ -500,9 +505,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 0
-  atkBonus: 0
+  atkBonus: 2
   defBonus: 0
   goldBonus: 0
+  hpBonus: 0
 --- !u!1 &6245655209153538900
 GameObject:
   m_ObjectHideFlags: 0

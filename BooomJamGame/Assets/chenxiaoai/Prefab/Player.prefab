@@ -547,11 +547,11 @@ MonoBehaviour:
   id: 1
   type: 2
   entityName: player1
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 400
+  currentHealth: 400
   attack: 10
-  defense: 5
-  gold: 10
+  defense: 10
+  gold: 0
   skills: []
 --- !u!114 &4395418063791329909
 MonoBehaviour:

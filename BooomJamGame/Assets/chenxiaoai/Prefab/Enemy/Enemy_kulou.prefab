@@ -651,12 +651,12 @@ MonoBehaviour:
   showDebugLogs: 1
   id: 5
   type: 0
-  entityName: Enemy1
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  entityName: kulou
+  maxHealth: 50
+  currentHealth: 50
+  attack: 42
+  defense: 6
+  gold: 6
   skills: []
 --- !u!114 &8304161985893190998
 MonoBehaviour:

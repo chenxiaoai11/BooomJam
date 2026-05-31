@@ -711,7 +711,7 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   attack: 0
-  defense: 40
+  defense: 6
   gold: 0
   skills: []
 --- !u!114 &7316210889201906868
@@ -774,6 +774,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceType: 1
   atkBonus: 0
-  defBonus: 0
+  defBonus: 6
   goldBonus: 0
   hpBonus: 0

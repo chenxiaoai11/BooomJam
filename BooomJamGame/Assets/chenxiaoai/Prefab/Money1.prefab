@@ -473,7 +473,7 @@ MonoBehaviour:
   currentHealth: 0
   attack: 0
   defense: 0
-  gold: 1000
+  gold: 20
   skills: []
 --- !u!114 &4002289840097365687
 MonoBehaviour:
@@ -500,6 +500,11 @@ MonoBehaviour:
   combatDetectionRadius: 0.5
   snapOffset: {x: 0, y: 0, z: -0.4}
   snapDuration: 0.3
+  enableCollision: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  collisionRadius: 0.4
   longPressThreshold: 0.15
 --- !u!114 &1325756419057617566
 MonoBehaviour:
@@ -531,7 +536,8 @@ MonoBehaviour:
   resourceType: 3
   atkBonus: 0
   defBonus: 0
-  goldBonus: 0
+  goldBonus: 20
+  hpBonus: 0
 --- !u!1 &6922791926919080952
 GameObject:
   m_ObjectHideFlags: 0

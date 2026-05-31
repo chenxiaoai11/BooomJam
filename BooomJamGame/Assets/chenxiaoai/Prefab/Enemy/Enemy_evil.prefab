@@ -126,12 +126,12 @@ MonoBehaviour:
   showDebugLogs: 1
   id: 9
   type: 0
-  entityName: Enemy1
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  entityName: evil
+  maxHealth: 300
+  currentHealth: 300
+  attack: 120
+  defense: 70
+  gold: 36
   skills: []
 --- !u!114 &809904915786803511
 MonoBehaviour:

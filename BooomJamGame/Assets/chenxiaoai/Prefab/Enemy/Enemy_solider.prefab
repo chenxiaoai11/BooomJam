@@ -410,12 +410,12 @@ MonoBehaviour:
   showDebugLogs: 1
   id: 13
   type: 0
-  entityName: Enemy1
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  entityName: solider
+  maxHealth: 150
+  currentHealth: 150
+  attack: 90
+  defense: 45
+  gold: 20
   skills: []
 --- !u!114 &2675633640882453206
 MonoBehaviour:

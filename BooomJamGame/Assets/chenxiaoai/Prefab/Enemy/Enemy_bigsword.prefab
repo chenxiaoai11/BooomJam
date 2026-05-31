@@ -261,11 +261,11 @@ MonoBehaviour:
   id: 21
   type: 0
   entityName: Enemy_bigsword
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  maxHealth: 300
+  currentHealth: 300
+  attack: 220
+  defense: 50
+  gold: 42
   skills: []
 --- !u!114 &7275722073658212974
 MonoBehaviour:

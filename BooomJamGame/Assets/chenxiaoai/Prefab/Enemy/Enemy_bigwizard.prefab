@@ -127,11 +127,11 @@ MonoBehaviour:
   id: 26
   type: 0
   entityName: bigwizard
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  maxHealth: 500
+  currentHealth: 500
+  attack: 120
+  defense: 110
+  gold: 80
   skills: []
 --- !u!114 &7963037811148986603
 MonoBehaviour:

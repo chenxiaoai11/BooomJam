@@ -410,12 +410,12 @@ MonoBehaviour:
   showDebugLogs: 1
   id: 6
   type: 0
-  entityName: Enemy1
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  entityName: bat
+  maxHealth: 35
+  currentHealth: 35
+  attack: 38
+  defense: 3
+  gold: 3
   skills: []
 --- !u!114 &196223983516352459
 MonoBehaviour:

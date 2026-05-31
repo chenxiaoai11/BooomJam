@@ -754,11 +754,11 @@ MonoBehaviour:
   id: 21
   type: 0
   entityName: Enemy_bloodbat
-  maxHealth: 100
-  currentHealth: 100
-  attack: 10
-  defense: 5
-  gold: 10
+  maxHealth: 200
+  currentHealth: 200
+  attack: 100
+  defense: 65
+  gold: 30
   skills: []
 --- !u!114 &2223580620978220944
 MonoBehaviour:

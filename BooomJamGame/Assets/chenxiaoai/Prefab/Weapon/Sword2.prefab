@@ -710,9 +710,9 @@ MonoBehaviour:
   entityName: Sword2
   maxHealth: 0
   currentHealth: 0
-  attack: 20
+  attack: 4
   defense: 0
-  gold: 5
+  gold: 0
   skills: []
 --- !u!114 &6022893074121994631
 MonoBehaviour:
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 0
-  atkBonus: 0
+  atkBonus: 4
   defBonus: 0
   goldBonus: 0
   hpBonus: 0

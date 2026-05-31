@@ -260,8 +260,8 @@ MonoBehaviour:
   id: 16
   type: 1
   entityName: Bloodvial
-  maxHealth: 0
-  currentHealth: 100
+  maxHealth: 200
+  currentHealth: 200
   attack: 0
   defense: 0
   gold: 0
@@ -328,7 +328,7 @@ MonoBehaviour:
   atkBonus: 0
   defBonus: 0
   goldBonus: 0
-  hpBonus: 100
+  hpBonus: 200
 --- !u!1 &4158489675380065956
 GameObject:
   m_ObjectHideFlags: 0
