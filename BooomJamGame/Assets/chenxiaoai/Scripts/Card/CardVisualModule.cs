@@ -93,6 +93,21 @@ public class CardVisualModule : ModuleBase
         targetPosition = basePosition;
     }
 
+    /// <summary>
+    /// 强制让卡牌立即落地，取消所有拖拽和悬停状态
+    /// </summary>
+    public void ForceDropCard()
+    {
+        isDragging = false;
+        isHovering = false;
+        potentialClick = false;
+        
+        // 立即更新基础位置到当前位置的 XY 平面，但保持桌面高度
+        basePosition = new Vector3(transform.position.x, basePosition.y, transform.position.z);
+        targetPosition = basePosition;
+        targetEmission = normalEmission;
+    }
+
     public override void OnModuleLoad(EntityCore entity)
     {
         // 记录初始位置

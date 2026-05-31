@@ -61,9 +61,10 @@ public class ObjectSwitcherTrigger : MonoBehaviour
         isAnyTriggerRunning = true; // 开启全局锁
         Debug.Log($"触发物体位移切换: {gameObject.name}");
 
-        // 如果提供了玩家视觉模块，也将其锁定
+        // 如果提供了玩家视觉模块，立即强制卡牌落地
         if (playerVisual != null)
         {
+            playerVisual.ForceDropCard(); // 关键修改：立即取消拖拽，让卡牌落地
             playerVisual.IsExternalAnimating = true;
         }
 

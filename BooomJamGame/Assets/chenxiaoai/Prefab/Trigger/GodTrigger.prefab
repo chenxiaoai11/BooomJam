@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e0042b3f47a8e479860f2540523c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillPointsToAdd: 10
+  skillPointsToAdd: 1
   destroyOnTrigger: 1
 --- !u!222 &957061277574957797
 CanvasRenderer:
