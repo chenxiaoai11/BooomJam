@@ -16,12 +16,35 @@ public class EntityCore : MonoBehaviour
     public int id;
     public EntityType type = EntityType.Enemy;
     public string entityName;
+    public int defaultHealth = 100;
     public int maxHealth = 100;
     public int currentHealth = 100;
     public int attack = 10;
     public int defense = 5;
     public int gold = 10;
     public List<string> skills = new List<string>();
+
+    public bool HasHealthCap => type != EntityType.Player;
+
+    public int BaseHealthValue => type == EntityType.Player ? defaultHealth : maxHealth;
+
+    public void Heal(int amount)
+    {
+        if (amount <= 0) return;
+
+        if (HasHealthCap)
+        {
+            currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+            return;
+        }
+
+        currentHealth += amount;
+    }
+
+    public string GetHealthDisplayText()
+    {
+        return HasHealthCap ? $"{currentHealth}/{maxHealth}" : currentHealth.ToString();
+    }
 
     // 存储当前激活的模块
     private Dictionary<IModuleCore, MonoBehaviour> _moduleMap = new Dictionary<IModuleCore, MonoBehaviour>();

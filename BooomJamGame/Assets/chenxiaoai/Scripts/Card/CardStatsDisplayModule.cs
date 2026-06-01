@@ -46,7 +46,7 @@ public class CardStatsDisplayModule : ModuleBase
             attackText.text = entityCore.attack.ToString();
 
         if (healthText != null)
-            healthText.text = $"{entityCore.currentHealth}/{entityCore.maxHealth}";
+            healthText.text = entityCore.GetHealthDisplayText();
 
         if (defenseText != null)
             defenseText.text = entityCore.defense.ToString();

@@ -198,9 +198,8 @@ public class ShopManager : MonoBehaviour
                 Debug.Log($"[Shop] 购买防御力成功！当前防御: {player.defense} (+{defenseBonus})");
                 break;
             case "Health":
-                player.maxHealth += healthBonus;
                 player.currentHealth += healthBonus;
-                Debug.Log($"[Shop] 购买生命值成功！当前生命: {player.currentHealth}/{player.maxHealth} (+{healthBonus})");
+                Debug.Log($"[Shop] 购买生命值成功！当前生命: {player.GetHealthDisplayText()} (+{healthBonus})");
                 break;
         }
 

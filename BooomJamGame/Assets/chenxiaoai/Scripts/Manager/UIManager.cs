@@ -118,7 +118,7 @@ public class UIManager : MonoBehaviour
         
         if (infoAtkText != null) infoAtkText.text = displayedCore.attack.ToString();
         if (infoDefText != null) infoDefText.text = displayedCore.defense.ToString();
-        if (infoHpText != null) infoHpText.text = $"{displayedCore.currentHealth}/{displayedCore.maxHealth}";
+        if (infoHpText != null) infoHpText.text = displayedCore.GetHealthDisplayText();
     }
 
     private bool justOpened = false;

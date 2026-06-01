@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public struct PlayerPersistentData
     {
+        public int defaultHealth;
         public int maxHealth;
         public int currentHealth;
         public int attack;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     {
         if (player == null) return;
         
+        savedPlayerData.defaultHealth = player.defaultHealth;
         savedPlayerData.maxHealth = player.maxHealth;
         savedPlayerData.currentHealth = player.currentHealth;
         savedPlayerData.attack = player.attack;
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         if (player == null || !hasSavedData) return;
 
-        player.maxHealth = savedPlayerData.maxHealth;
+        player.defaultHealth = savedPlayerData.defaultHealth > 0 ? savedPlayerData.defaultHealth : player.defaultHealth;
         player.currentHealth = savedPlayerData.currentHealth;
         player.attack = savedPlayerData.attack;
         player.defense = savedPlayerData.defense;
@@ -122,6 +124,7 @@ public class GameManager : MonoBehaviour
         
         savedPlayerData = new PlayerPersistentData
         {
+            defaultHealth = 100,
             maxHealth = 100,
             currentHealth = 100,
             attack = 10,

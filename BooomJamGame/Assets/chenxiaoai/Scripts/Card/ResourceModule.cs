@@ -57,7 +57,7 @@ public class ResourceModule : ModuleBase
         // 处理生命值恢复
         if (hpBonus > 0)
         {
-            playerCore.currentHealth = Mathf.Min(playerCore.maxHealth, playerCore.currentHealth + hpBonus);
+            playerCore.Heal(hpBonus);
         }
 
         Debug.Log($"[{playerCore.gameObject.name}] 消耗了 [{gameObject.name}]，当前属性：ATK {playerCore.attack}, DEF {playerCore.defense}, GOLD {playerCore.gold}, HP {playerCore.currentHealth}");

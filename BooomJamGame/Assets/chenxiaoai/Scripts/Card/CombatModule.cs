@@ -174,7 +174,7 @@ public class CombatModule : ModuleBase
         combatRoundCount = 0;
         baseAttackAtCombatStart = Core.attack;
         baseDefenseAtCombatStart = Core.defense;
-        baseMaxHPAtCombatStart = Core.maxHealth;
+        baseMaxHPAtCombatStart = Core.BaseHealthValue;
 
         // [技能] 狂野一击 (skill_WildStrike)：战斗开始前额外造成一次自身攻击力 150% 的伤害
         if (HasSkill("狂野一击"))
@@ -270,7 +270,7 @@ public class CombatModule : ModuleBase
             // [技能] 神圣庇护 (skill_DivineProtection)：每回合回复防御力 10% 的生命值
             if (HasSkill("神圣庇护"))
             {                int healAmount = Mathf.Max(1, Mathf.RoundToInt(Core.defense * 0.1f));
-                Core.currentHealth = Mathf.Min(Core.maxHealth, Core.currentHealth + healAmount);
+                Core.Heal(healAmount);
                 Debug.Log($"[技能-神圣庇护] 回复了 {healAmount} 点生命值。");
             }
 
@@ -300,7 +300,7 @@ public class CombatModule : ModuleBase
             if (HasSkill("嗜血之刃"))
             {
                 int lifesteal = Mathf.Max(1, Mathf.RoundToInt(damage * 0.1f));
-                Core.currentHealth = Mathf.Min(Core.maxHealth, Core.currentHealth + lifesteal);
+                Core.Heal(lifesteal);
                 Debug.Log($"[技能-嗜血之刃] 吸取了 {lifesteal} 点生命值。");
             }
 
