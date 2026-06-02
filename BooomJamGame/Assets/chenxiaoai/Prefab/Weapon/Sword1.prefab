@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6033f655fb21fe447a712a1e58116b38, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0b7c1f93cb2ae9741958fc442dcde903, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -440,6 +440,7 @@ MonoBehaviour:
   id: 2
   type: 1
   entityName: Sword1
+  defaultHealth: 100
   maxHealth: 0
   currentHealth: 0
   attack: 2

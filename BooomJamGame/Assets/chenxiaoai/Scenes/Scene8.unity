@@ -2493,7 +2493,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6033f655fb21fe447a712a1e58116b38, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7351747ac9a61ad45a292dcf6e842209, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8465,11 +8465,11 @@ MonoBehaviour:
   priceBannerText: {fileID: 690552477}
   slideDuration: 0.5
   shopShortcutKey: 98
-  itemPrice: 80
-  priceIncrement: 8
-  attackBonus: 8
-  defenseBonus: 8
-  healthBonus: 40
+  itemPrice: 20
+  priceIncrement: 2
+  attackBonus: 2
+  defenseBonus: 2
+  healthBonus: 200
   hiddenPos: {x: 0, y: 1500}
   visiblePos: {x: 0, y: 0}
 --- !u!4 &1625507879
@@ -11090,7 +11090,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 532bea7379d1747489c05890f59fafea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a0454a2afda4324399b5da9911a788b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11478,6 +11478,7 @@ MonoBehaviour:
   id: 0
   type: 0
   entityName: 
+  defaultHealth: 100
   maxHealth: 100
   currentHealth: 100
   attack: 10

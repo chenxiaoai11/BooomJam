@@ -467,7 +467,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b9ae07fbbd3671e4e89e680e2bf3550f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a0454a2afda4324399b5da9911a788b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -708,6 +708,7 @@ MonoBehaviour:
   id: 25
   type: 1
   entityName: Armor2
+  defaultHealth: 100
   maxHealth: 0
   currentHealth: 0
   attack: 0
